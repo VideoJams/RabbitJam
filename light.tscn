@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njlvs"]
 size = Vector2(31, 31)
 
-[node name="light" type="Area2D"]
+[node name="light" type="Area2D" groups=["light"]]
 script = ExtResource("1_we4ua")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

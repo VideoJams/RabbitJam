@@ -2,17 +2,19 @@ extends Area2D
 
 var direction = Vector2.RIGHT
 var parents = 0
-
-
+var reduction = 0.13
 
 @onready var sprite = $Sprite2D
 
 func _ready() -> void:
 	await get_tree().process_frame
-	var mirror = touching_mirror()
-	if (mirror):
-		update_direction(mirror)
-	var still_visible = sprite.modulate.a > 0
+	var touching = get_touching()
+	if (touching):
+		if touching.is_in_group("mirror"):
+			update_direction(touching)
+		if touching.is_in_group("wall"):
+			queue_free()
+	var still_visible = sprite.modulate.a > 0.1
 	if (still_visible):
 		#Create a new light instance while light has not faded out
 		var light_scene = load("res://light.tscn")
@@ -22,18 +24,22 @@ func _ready() -> void:
 		light_instance.direction = direction
 		light_instance.update_position()
 		for parent in parents:
-			light_instance.reduce_opacity(0.05)
+			light_instance.reduce_opacity(reduction)
 
 #func touching_mirror() -> Area2D:
 	#for area in get_overlapping_areas():
 		#if area.is_in_group("mirror"):
 			#return area
 	#return null
-func touching_mirror() -> Area2D:
+func get_touching() -> Area2D:
 	for mirror in get_tree().get_nodes_in_group("mirror"):
 		var delta = mirror.global_position - global_position
 		if abs(delta.x) < 16 and abs(delta.y) < 16:
 			return mirror
+	for wall in get_tree().get_nodes_in_group("wall"):
+		var delta = wall.global_position - global_position
+		if abs(delta.x) < 16 and abs(delta.y) < 16:
+			return wall
 	return null
 
 func update_direction(mirror: Area2D) -> void:
