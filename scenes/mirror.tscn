@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba1yd0njov7bx"]
+
+[ext_resource type="Script" uid="uid://cwk3fhdacbhpe" path="res://scripts/mirror.gd" id="1_nk6sm"]
+[ext_resource type="Texture2D" uid="uid://cf6ewtrg85q6c" path="res://assets/Mirror.png" id="1_scjey"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk6sm"]
+size = Vector2(31, 31)
+
+[node name="mirror" type="Area2D" groups=["mirror", "obstacle"]]
+top_level = true
+script = ExtResource("1_nk6sm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_scjey")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nk6sm")

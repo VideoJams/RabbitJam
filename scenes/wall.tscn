@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dto8tdo7iv35t"]
+
+[ext_resource type="Script" uid="uid://davk46sq3vueq" path="res://scenes/wall.gd" id="1_2ktk7"]
+[ext_resource type="Texture2D" uid="uid://cy6f4opp45n76" path="res://assets/Light.png" id="2_e00m8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4f30"]
+size = Vector2(31, 31)
+
+[node name="wall" type="Area2D" groups=["obstacle", "wall"]]
+script = ExtResource("1_2ktk7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y4f30")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.06879827, 0.06879828, 0.06879828, 1)
+texture = ExtResource("2_e00m8")

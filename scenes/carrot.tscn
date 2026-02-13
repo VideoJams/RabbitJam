@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqoeiudalid3n"]
+
+[ext_resource type="Script" uid="uid://c2p5a4skw2gni" path="res://scripts/carrot.gd" id="1_wql3v"]
+[ext_resource type="Texture2D" uid="uid://bp5kkwehlo4ry" path="res://assets/Carrot 1.png" id="2_shfyt"]
+[ext_resource type="Texture2D" uid="uid://02dt758i7wku" path="res://assets/Carrot 2.png" id="3_6qnir"]
+[ext_resource type="Texture2D" uid="uid://l2308gfktqtw" path="res://assets/Carrot 3.png" id="4_fn2tn"]
+[ext_resource type="Texture2D" uid="uid://icacwdasdwuf" path="res://assets/Carrot 4.png" id="5_1l4ui"]
+[ext_resource type="Texture2D" uid="uid://b40ch8r4djsya" path="res://assets/Carrot 5.png" id="6_5j8o0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxif5"]
+radius = 15.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mebkr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_shfyt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6qnir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fn2tn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1l4ui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5j8o0")
+}],
+"loop": false,
+"name": &"grow",
+"speed": 5.0
+}]
+
+[node name="carrot" type="Area2D" groups=["carrot"]]
+script = ExtResource("1_wql3v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gxif5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mebkr")
+animation = &"grow"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
