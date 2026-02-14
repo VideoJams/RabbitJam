@@ -23,6 +23,7 @@ func _ready() -> void:
 	else:
 		#Create a new light instance while light has not faded out
 		var light_instance = light_scene.instantiate()
+		light_instance.connect("lit", func(): emit_signal("lit"))
 		add_child(light_instance)
 		light_instance.parents = parents+1
 		light_instance.direction = direction

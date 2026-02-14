@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqegdguy13alp"]
+[gd_scene format=3 uid="uid://dqegdguy13alp"]
 
 [ext_resource type="Script" uid="uid://bpjvlv2ik5kt8" path="res://scripts/level.gd" id="1_o5qli"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=2007456256]
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Level" type="Node2D" parent="." unique_id=1283893749]
 script = ExtResource("1_o5qli")

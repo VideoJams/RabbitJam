@@ -8,10 +8,12 @@ extends Node2D
 @onready var spotlight_scene = load("res://scenes/spotlight.tscn")
 @onready var light_scene = load("res://scenes/light.tscn")
 
+var light_updating = false
 var light_direction = Vector2.UP
 var light_reduction = 0.055
 var level = 1
 
+var rabbit
 var spotlight
 
 func _ready() -> void:
@@ -40,7 +42,7 @@ func level_one() -> void:
 	add_child(carrot)
 	
 	##Create rabbit
-	var rabbit = rabbit_scene.instantiate()
+	rabbit = rabbit_scene.instantiate()
 	rabbit.global_position = Vector2(48.0, 112.0)
 	rabbit.connect("dead", reset_level)
 	add_child(rabbit)
@@ -71,7 +73,7 @@ func level_two() -> void:
 	add_child(carrot)
 	
 	##Create rabbit
-	var rabbit = rabbit_scene.instantiate()
+	rabbit = rabbit_scene.instantiate()
 	rabbit.global_position = Vector2(208.0, 368.0)
 	rabbit.connect("dead", reset_level)
 	add_child(rabbit)
@@ -92,7 +94,7 @@ func level_three() -> void:
 	add_child(carrot)
 	
 	##Create rabbit
-	var rabbit = rabbit_scene.instantiate()
+	rabbit = rabbit_scene.instantiate()
 	rabbit.global_position = Vector2(208.0, 368.0)
 	rabbit.connect("dead", reset_level)
 	add_child(rabbit)
@@ -165,6 +167,7 @@ func reset_level():
 	level_two()
 
 func update_light() -> void:
+	rabbit.can_move = false
 	for child in get_children():
 		if child.is_in_group("light"):
 			var loc = child.global_position
@@ -172,9 +175,11 @@ func update_light() -> void:
 			var new_light = light_scene.instantiate()
 			new_light.global_position = loc
 			new_light.direction = light_direction
+			new_light.connect("lit", _on_light_finished)
 			add_child(new_light)
 
 func update_spotlight() -> void:
+	rabbit.can_move = false
 	for child in get_children():
 		if child.is_in_group("light"):
 			child.queue_free()
@@ -188,4 +193,10 @@ func update_spotlight() -> void:
 		light_dir = Vector2.LEFT
 	new_light.global_position = spotlight.global_position + light_dir*32
 	new_light.direction = light_dir
+	new_light.connect("lit", _on_light_finished)
 	add_child(new_light)
+
+func _on_light_finished():
+	print("LIT")
+	rabbit.can_move = true
+	rabbit.check_dead()

@@ -2,12 +2,13 @@ extends Area2D
 
 var facing_left = true
 var alive = true
+var can_move = true
 signal dead
 
 @onready var sprite = $Sprite2D
 
 func _process(delta: float) -> void:
-	if alive:
+	if alive and can_move:
 		if Input.is_action_just_pressed("ui_up"):
 			handle_move(Vector2.UP)
 		elif Input.is_action_just_pressed("ui_right"):
