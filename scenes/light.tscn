@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://br4mmf16bvjhl"]
+[gd_scene format=3 uid="uid://br4mmf16bvjhl"]
 
 [ext_resource type="Script" uid="uid://btgm7l0no3370" path="res://scripts/light.gd" id="1_2e2gu"]
 [ext_resource type="Texture2D" uid="uid://cy6f4opp45n76" path="res://assets/Light.png" id="2_ky1i4"]
@@ -6,11 +6,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njlvs"]
 size = Vector2(31, 31)
 
-[node name="light" type="Area2D" groups=["light"]]
+[node name="light" type="Area2D" unique_id=552191706 groups=["light"]]
 script = ExtResource("1_2e2gu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1391162834]
 shape = SubResource("RectangleShape2D_njlvs")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1828665484]
 texture = ExtResource("2_ky1i4")

@@ -1,6 +1,8 @@
+#spotlight.gd
 extends "res://scripts/obstacle.gd"
 
 var light_source
+var reduction
 
 func _ready() -> void:
 	can_move = true
