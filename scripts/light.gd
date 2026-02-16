@@ -3,8 +3,11 @@ extends Area2D
 signal lit
 var direction = Vector2.RIGHT
 var parents = 0
+#Level 1 reduction 0.13
 #var reduction = 0.13
-var reduction = 0.055
+#Level 2 reduction 0.055
+#var reduction = 0.055
+var reduction
 
 @onready var sprite = $Sprite2D
 @onready var light_scene = load("res://scenes/light.tscn")
@@ -23,13 +26,17 @@ func _ready() -> void:
 	else:
 		#Create a new light instance while light has not faded out
 		var light_instance = light_scene.instantiate()
+		light_instance.reduction = reduction
+		print(light_instance.reduction)
 		light_instance.connect("lit", func(): emit_signal("lit"))
-		add_child(light_instance)
 		light_instance.parents = parents+1
 		light_instance.direction = direction
 		light_instance.update_position()
+		add_child(light_instance)
 		for parent in parents:
 			light_instance.reduce_opacity(reduction)
+	print("parents: "+ str(parents))
+	print("opacity: "+ str(sprite.modulate.a))
 
 #func touching_mirror() -> Area2D:
 	#for area in get_overlapping_areas():

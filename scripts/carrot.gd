@@ -9,5 +9,6 @@ func _ready() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if (area.is_in_group("light")):
-		sprite.play("grow")
-		collectible = true
+		if !collectible:
+			sprite.play("grow")
+			collectible = true
