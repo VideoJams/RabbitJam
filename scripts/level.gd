@@ -15,7 +15,7 @@ var rabbit
 var spotlight
 
 func _ready() -> void:
-	level_three()
+	level_four()
 
 func reset_level():
 	await get_tree().create_timer(1.0).timeout
@@ -92,6 +92,52 @@ func level_three() -> void:
 	rabbit.connect("dead", reset_level)
 	add_child(rabbit)
 
+func level_four():
+	create_walls(11,15)
+	create_wall(grid_position(1,5))
+	create_wall(grid_position(2,5))
+	create_wall(grid_position(3,5))
+	
+	create_wall(grid_position(3,6))
+	create_wall(grid_position(3,7))
+	create_wall(grid_position(3,8))
+	create_wall(grid_position(3,9))
+	create_wall(grid_position(3,10))
+	create_wall(grid_position(3,11))
+	create_wall(grid_position(3,12))
+	create_wall(grid_position(3,13))
+	
+	create_wall(grid_position(7,5))
+	create_wall(grid_position(8,6))
+	create_wall(grid_position(9,6))
+	
+	create_wall(grid_position(7,6))
+	create_wall(grid_position(7,7))
+	create_wall(grid_position(7,8))
+	create_wall(grid_position(7,9))
+	create_wall(grid_position(7,10))
+	create_wall(grid_position(7,11))
+	create_wall(grid_position(7,12))
+	create_wall(grid_position(7,13))
+	
+	create_wall(grid_position(5,2))
+	
+	create_mirror(grid_position(2,2),"SE")
+	create_mirror(grid_position(5,3),"SW")
+	create_spotlight(grid_position(5,11),"N",set_light_reduction(14),true)
+	
+	var carrot = carrot_scene.instantiate()
+	carrot.global_position = grid_position(9,5)
+	add_child(carrot)
+	
+	rabbit = rabbit_scene.instantiate()
+	rabbit.global_position = grid_position(5,13)
+	rabbit.connect("dead", reset_level)
+	add_child(rabbit)
+
+func grid_position(x: int, y: int) -> Vector2:
+	return Vector2(x*32+16, y*32+16)
+
 func set_light_reduction(lights: int) -> float:
 	return 0.91 / float(lights - 2)
 
@@ -111,7 +157,7 @@ func create_wall(pos: Vector2):
 	wall.global_position = pos
 	add_child(wall)
 
-func create_spotlight(pos: Vector2, facing: String, reduction: float) -> void:
+func create_spotlight(pos: Vector2, facing: String, reduction: float, heavy=false) -> void:
 	var light = Vector2.UP
 	if facing == "E":
 		light = Vector2.RIGHT
@@ -130,6 +176,7 @@ func create_spotlight(pos: Vector2, facing: String, reduction: float) -> void:
 	spotlight.connect("moved", update_spotlight)
 	add_child(spotlight)
 	create_light(pos+32*(light), facing, reduction)
+	if heavy: spotlight.can_move=false
 
 func create_light(pos: Vector2, facing: String, reduction: float) -> void:
 	var light = light_scene.instantiate()
